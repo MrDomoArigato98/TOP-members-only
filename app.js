@@ -2,12 +2,13 @@ import path from "node:path";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
-import { Pool } from "pg";
 import express from "express";
 import session from "express-session";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
+
 import bcrypt from "bcryptjs";
+import { Pool } from "pg";
 
 import { mountRoutes } from "./routes/index.js";
 const app = express()
@@ -40,15 +41,6 @@ app.use((req, res, next) => {
   res.status(404);
   res.json({ error: "Not Found" });
 });
-
-
-
-
-
-
-
-
-
 
 //Error handler 
 app.use((err, req, res, next) => {

@@ -1,3 +1,6 @@
+import passport from "passport";
+import bcrypt from "bcryptjs";
+
 export function getHome(req, res) {
   console.log("getHome");
 }
@@ -15,5 +18,5 @@ export function getLogInForm(req, res) {
 }
 
 export function postLogInForm(req, res) {
-  console.log("postLogInForm");
+  console.log("postLogInForms");
 }
