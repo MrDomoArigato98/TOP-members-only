@@ -4,27 +4,31 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename); // get the name of the directory
 import express from "express";
 import session from "express-session";
+import pgSession from "connect-pg-simple";
 import passport from "passport";
-import { Strategy as LocalStrategy } from "passport-local";
-
-import bcrypt from "bcryptjs";
-import { Pool } from "pg";
+import "./auth/passport-config.js";
+import { pool } from "./db/pool.js";
 
 import { mountRoutes } from "./routes/index.js";
-const app = express()
+const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 //Static assets
 app.use(express.static(__dirname + "/public"));
 
+const PgSession = pgSession(session)
+
 app.use(
   session({
-    secret: "very secret secret",
+    store: new PgSession({ pool }),
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    cookie: { secure: false }, // use true only if HTTPS
   })
 );
 
+app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
@@ -34,7 +38,7 @@ app.use((req, res, next) => {
   next();
 });
 
-mountRoutes(app)
+mountRoutes(app);
 
 // 404 handler after main router above
 app.use((req, res, next) => {
@@ -42,7 +46,7 @@ app.use((req, res, next) => {
   res.json({ error: "Not Found" });
 });
 
-//Error handler 
+//Error handler
 app.use((err, req, res, next) => {
   console.error(err);
   const status = err.status || 500;

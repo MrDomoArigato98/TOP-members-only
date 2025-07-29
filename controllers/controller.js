@@ -8,9 +8,11 @@ export async function getHome(req, res) {
   res.render("index", {
     title: "Message Board",
   });
+  console.log(res.locals.currentUser);
+  
 }
 
-export async function getSignUpForm(req, res, ) {
+export async function getSignUpForm(req, res) {
   res.render("sign-up-form");
 }
 
@@ -41,8 +43,13 @@ export async function postSignUpForm(req, res, next) {
     });
   } catch (error) {
     console.error("Signup error:", error);
+    let msg = "";
+    if (error.code == 23505) {
+      msg = "User already exists";
+    }
+
     res.status(500).render("sign-up-form", {
-      errorList: [{ msg: "Something went wrong. Please try again." }],
+      errorList: [{ msg: "Something went wrong. Please try again." }, { msg }],
       username,
       full_name,
     });
