@@ -16,15 +16,15 @@ app.use(express.urlencoded({ extended: true }));
 //Static assets
 app.use(express.static(__dirname + "/public"));
 
-const PgSession = pgSession(session)
+const PgSession = pgSession(session);
 
 app.use(
   session({
-    store: new PgSession({ pool }),
+    store: new PgSession({ pool, ttl: 1000 * 60 * 60 }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false }, // use true only if HTTPS
+    cookie: { secure: false, maxAge: 1000 * 60 * 60}, // use true only if HTTPS
   })
 );
 
