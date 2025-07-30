@@ -2,8 +2,8 @@
 
     <% if (currentUser) { %>
         <div class="new-message-wrapper">
-  <a class="hover border new-message-link" href="/new-message">Post a new message</a>
-</div>
+            <a class="hover border new-message-link" href="/new-message">Post a new message</a>
+        </div>
         <% } %>
             <div class="messages-container">
                 <% if (messages.length===0) { %>
@@ -12,23 +12,33 @@
                         <% messages.forEach(message=> { %>
                             <div class="message-box">
                                 <% if (currentUser && currentUser.is_member) { %>
-                                    <p> Author:
-                                        <%= message.author %>
-                                    </p>
-                                    <p> Created at: <em>
-                                            <%= message.created_at.toLocaleString() %>
-                                        </em></p>
+                                
+                                                <div class="message-content">
+                                                    <p> Author:
+                                                        <%= message.author %>
+                                                    </p>
+                                                    <p> Created at: <em>
+                                                            <%= message.created_at.toLocaleString() %>
+                                                        </em></p>
 
-                                    <% } else { %>
-                                        <p><em>Author: [Members only]</em></p>
-                                        <% } %>
-                                            <h3>
-                                                <%= message.title %>
-                                            </h3>
-                                            <p>
-                                                <%= message.body %>
-                                            </p>
-
+                                                    <% } else { %>
+                                                        <p><em>Author: [Members only]</em></p>
+                                                        <% } %>
+                                                            <h3>
+                                                                <%= message.title %>
+                                                            </h3>
+                                                            <p>
+                                                                <%= message.body %>
+                                                            </p>
+                                                </div>
+                                                <% if (currentUser.is_admin) { %>
+                                        <%= console.log(message.id); %>
+                                            <form class="delete-msg-form" action="/delete-message/<%= message.id %>"
+                                                method="POST">
+                                                <button type="submit" class="delete-button"
+                                                    title="Delete message">X</button>
+                                            </form>
+                                            <% } %>
                             </div>
                             <% }) %>
                                 <% } %>

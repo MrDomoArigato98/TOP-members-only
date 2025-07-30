@@ -7,15 +7,15 @@ import {
   getAllMessages,
   makeUserMember,
   removeMembership,
+  deleteMessageById,
 } from "../db/queries.js";
 import { validationResult } from "express-validator";
 
 export async function getHome(req, res) {
-  console.log("getHome");
+  console.log(req.user);
 
   try {
     const messages = await getAllMessages();
-    console.log(messages);
 
     res.render("index", {
       title: "Message Board",
@@ -131,8 +131,7 @@ export async function postNewMessageForm(req, res) {
       title: "New Post",
     });
   }
-  console.log(req.body);
-  console.log(res.locals.currentUser);
+
   const { id } = res.locals.currentUser;
 
   await createMessage(id, req.body.title, req.body.body);
@@ -149,4 +148,16 @@ export async function postLeaveClub(req, res) {
     console.error("Error removing membership", error);
     res.redirect("/");
   }
+}
+
+export async function deleteMessage(req, res) {
+  const { messageId } = req.params;
+
+  try {
+    await deleteMessageById(messageId);
+  } catch (error) {
+    console.error("Error removing message", error);
+    res.redirect("/");
+  }
+  res.redirect("/");
 }

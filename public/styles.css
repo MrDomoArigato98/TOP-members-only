@@ -267,13 +267,19 @@ footer {
   background-color: #1f1f1f;
   border-radius: 6px;
   margin-bottom: 1.5rem;
-  box-shadow: rgba(88, 86, 86, 0.16) 0px 1px 4px, rgb(83, 104, 106) 0px 0px 0px 3px;
-}
+  box-shadow: rgba(88, 86, 86, 0.16) 0px 1px 4px,
+    rgb(83, 104, 106) 0px 0px 0px 3px;
 
+  display: flex;
+}
+.message-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
 .message-box h3 {
   margin-bottom: 0.5rem;
   color: #f1f1f1;
-  
 }
 
 .message-box p {
@@ -336,9 +342,26 @@ footer {
 
 /*END Modal  */
 
-.hover:hover {
-  scale: 1.1;
+
+.delete-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--highlight);
+  cursor: pointer;
+  transition: 0.1s ease-in all;
 }
+
+.hover:hover {
+  transform: scale(1.1);
+  color: red;
+}
+
+.delete-button:hover {
+  transform: scale(1.5);
+  color: red;
+}
+
 @media (max-width: 768px) {
   header {
     display: flex;

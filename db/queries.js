@@ -59,15 +59,18 @@ export async function dropAllMessages() {
 }
 
 export async function makeUserMember(userId) {
-  await pool.query(
-    `UPDATE users SET is_member = true WHERE id = $1`,
-    [userId]
-  );
+  await pool.query(`UPDATE users SET is_member = true WHERE id = $1`, [userId]);
 }
 
 export async function removeMembership(userId) {
-  await pool.query(
-    `UPDATE users SET is_member = false WHERE id = $1`,
-    [userId]
-  );
+  await pool.query(`UPDATE users SET is_member = false WHERE id = $1`, [
+    userId,
+  ]);
+}
+
+export async function deleteMessageById(messageId) {
+  const { rows } = await pool.query(`DELETE FROM messages WHERE id = $1`, [
+    messageId,
+  ]);
+  console.log(rows);
 }
