@@ -23,12 +23,12 @@
       <p class="welcome-text">&nbsp;</p> <!-- keeps space consistent -->
     <% } %>
 
-    <nav>
+    <nav class="links">
       <% if (currentUser) { %>
-        <a class="nav-link border nav-btn" href="/log-out">Log-out</a>
+        <a class="hover nav-link border nav-btn" href="/log-out">Log-out</a>
 
         <% if (currentUser.is_member) { %>
-          <button class="leave-club-button border nav-btn" onclick="openModal()">Leave Club</button>
+          <button class="hover nav-link border nav-btn" onclick="openModal()">Leave Club</button>
 
           <div id="leaveModal" class="modal hidden">
             <div class="modal-content">
@@ -40,7 +40,7 @@
             </div>
           </div>
         <% } else { %>
-          <a class="nav-link border nav-btn" href="/become-member">Become a Member</a>
+          <a class="hover nav-link border nav-btn" href="/become-member">Become a Member</a>
         <% } %>
       <% } else { %>
         <a class="nav-link border nav-btn" href="/log-in">Log-in</a>
