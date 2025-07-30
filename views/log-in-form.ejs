@@ -1,0 +1,23 @@
+<%- include("./partials/header") %>
+    <h1>please log in</h1>
+    <form action="/log-in" method="POST">
+        <label for="username">Username (Email)</label>
+        <input id="username" name="username" placeholder="username" type="email" />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" />
+
+        <button type="submit">Log In</button>
+
+        <% if (typeof errorList !=='undefined' && errorList.length> 0) { %>
+            <ul style="color: red;">
+                <% errorList.forEach(e=> { %>
+                    <li>
+                        <%= e.msg %>
+                    </li>
+                    <% }) %>
+            </ul>
+            <% } %>
+    </form>
+
+    <%- include("./partials/footer") %>

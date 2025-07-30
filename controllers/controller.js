@@ -58,8 +58,19 @@ export async function postSignUpForm(req, res, next) {
 
 export async function getLogInForm(req, res) {
   console.log("getLogInForm");
+
+  res.render("log-in-form", {
+    title: "Login"
+  })
 }
 
 export async function postLogInForm(req, res) {
   console.log("postLogInForms");
+}
+
+export async function getMemberForm(req,res){
+    
+}
+export async function postMemberForm(req,res){
+
 }

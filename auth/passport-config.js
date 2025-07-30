@@ -8,11 +8,11 @@ import { findUserByName, findUserById } from "../db/queries.js";
 passport.use(
   new LocalStrategy(async (username, password, done) => {
     try {
-      const user = findUserByName(username);
+      const user = await findUserByName(username);
       if (!user) {
         return done(null, false, { message: "Incorrect username" });
       }
-
+      
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false, { message: "Incorrect password" });
