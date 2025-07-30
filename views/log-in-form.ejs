@@ -1,23 +1,29 @@
 <%- include("./partials/header") %>
-    <h1>please log in</h1>
-    <form action="/log-in" method="POST">
-        <label for="username">Username (Email)</label>
-        <input id="username" name="username" placeholder="username" type="email" />
 
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
+<div class="form-container">
+    <h1 class="form-heading">Please enter your Login details:</h1>
 
-        <button type="submit">Log In</button>
+    <form action="/log-in" method="POST" class="form">
+        <div class="form-group">
+            <label for="username">Email</label>
+            <input id="username" name="username" type="email" placeholder="Email" required />
+        </div>
 
-        <% if (typeof errorList !=='undefined' && errorList.length> 0) { %>
-            <ul style="color: red;">
-                <% errorList.forEach(e=> { %>
-                    <li>
-                        <%= e.msg %>
-                    </li>
-                    <% }) %>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required />
+        </div>
+
+        <button type="submit" class="submit-button">Log In</button>
+
+        <% if (typeof errorList !== 'undefined' && errorList.length > 0) { %>
+            <ul class="error-messages">
+                <% errorList.forEach(e => { %>
+                    <li><%= e.msg %></li>
+                <% }) %>
             </ul>
-            <% } %>
+        <% } %>
     </form>
+</div>
 
-    <%- include("./partials/footer") %>
+<%- include("./partials/footer") %>

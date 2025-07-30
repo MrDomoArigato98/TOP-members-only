@@ -10,14 +10,22 @@ router.get("/sign-up", controller.getSignUpForm);
 router.post("/sign-up", signUpValidator, controller.postSignUpForm);
 
 router.get("/log-in", controller.getLogInForm);
-router.post(
-  "/log-in",
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/log-in",
-    failureFlash: false,
-  })
-);
+router.post("/log-in", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) return next(err);
+    if (!user) {
+      return res.status(400).render("log-in-form", {
+        title: "Login",
+        errorList: [{ msg: "Invalid username or password" }],
+      });
+    }
+
+    req.login(user, (err) => {
+      if (err) return next(err);
+      return res.redirect("/");
+    });
+  })(req, res, next);
+});
 
 router.get("/log-out", (req, res, next) => {
   req.logout((err) => {
@@ -27,8 +35,8 @@ router.get("/log-out", (req, res, next) => {
     });
   });
 });
-router.get("/become-member", controller.getMemberForm)
-router.post("/become-member", controller.postMemberForm)
+router.get("/become-member", controller.getMemberForm);
+router.post("/become-member", controller.postMemberForm);
 
 // router.get("/become-admin", controller.getAdminForm)
 // router.post("/become-admin", controller.postAdminForm)

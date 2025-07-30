@@ -9,11 +9,12 @@ export async function getHome(req, res) {
     title: "Message Board",
   });
   console.log(res.locals.currentUser);
-  
 }
 
 export async function getSignUpForm(req, res) {
-  res.render("sign-up-form");
+  res.render("sign-up-form", {
+    title: "Register",
+  });
 }
 
 export async function postSignUpForm(req, res, next) {
@@ -25,6 +26,7 @@ export async function postSignUpForm(req, res, next) {
       errorList: errors.array(),
       username,
       full_name,
+      title: "Sign-up",
     });
   }
 
@@ -52,6 +54,7 @@ export async function postSignUpForm(req, res, next) {
       errorList: [{ msg: "Something went wrong. Please try again." }, { msg }],
       username,
       full_name,
+      title: "Sign-up",
     });
   }
 }
@@ -60,17 +63,10 @@ export async function getLogInForm(req, res) {
   console.log("getLogInForm");
 
   res.render("log-in-form", {
-    title: "Login"
-  })
+    title: "Login",
+  });
 }
 
-export async function postLogInForm(req, res) {
-  console.log("postLogInForms");
-}
+export async function getMemberForm(req, res) {}
 
-export async function getMemberForm(req,res){
-    
-}
-export async function postMemberForm(req,res){
-
-}
+export async function postMemberForm(req, res) {}

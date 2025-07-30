@@ -1,43 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("./partials/header") %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="/styles.css" />
-</head>
+    <div class="form-container">
+        <form action="/sign-up" method="POST" class="form">
 
-<body>
-    <h1>Sign Up</h1>
-    <form action="/sign-up" method="POST">
-        <label for="username">Username - use your email</label>
-        <input id="username" name="username" placeholder="username" type="email"
-            value="<%= typeof username !== 'undefined' ? username : '' %>" />
+            <h1 class="form-heading">Sign Up:</h1>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                <input id="username" name="username" placeholder="user123@gmail.com" type="email"
+                    value="<%= typeof username !== 'undefined' ? username : '' %>" />
+            </div>
 
-        <label for="full_name">Full name:</label>
-        <input id="full_name" name="full_name" placeholder="full_name" type="text"
-            value="<%= typeof full_name!== 'undefined' ? full_name : '' %>" />
+            <div class="form-group">
+                <label for="full_name">Full name:</label>
+                <input id="full_name" name="full_name" placeholder="John Smith" type="text"
+                    value="<%= typeof full_name!== 'undefined' ? full_name : '' %>" />
+            </div>
 
 
-        <label for="password">Password</label>
-        <input id="password" name="password" type="password" />
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" />
+            </div>
 
-        <label for="confirm_password">Confirm password</label>
-        <input id="confirm_password" name="confirm_password" type="password" />
+            <div class="form-group">
+                <label for="confirm_password">Confirm password</label>
+                <input id="confirm_password" name="confirm_password" type="password" />
+            </div>
 
-        <button type="submit">Sign Up</button>
+            <button type="submit">Sign Up</button>
 
-        <% if (typeof errorList !=='undefined' && errorList.length> 0) { %>
-            <ul style="color: red;">
-                <% errorList.forEach(e=> { %>
-                    <li>
-                        <%= e.msg %>
-                    </li>
-                    <% }) %>
+            <% if (typeof errorList !== 'undefined' && errorList.length > 0) { %>
+            <ul class="error-messages">
+                <% errorList.forEach(e => { %>
+                    <li><%= e.msg %></li>
+                <% }) %>
             </ul>
-            <% } %>
-    </form>
-</body>
-
-</html>
+        <% } %>
+        </form>
+    </div>
+    <%- include("./partials/footer") %>
