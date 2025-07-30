@@ -12,39 +12,42 @@
 
 <body>
     <header>
+  <a href="/" class="nav-link site-title-link">
+    <h1>Message Board</h1>
+  </a>
 
-        <a href="/" class="nav-link site-title-link">
-            <h1>Message Board</h1>
-        </a>
-        <% if (currentUser) { %>
-            <p>Welcome, <%= currentUser.full_name %>
-            </p>
-            <% } %>
-                <nav>
+  <div class="nav-wrapper">
+    <% if (currentUser) { %>
+      <p class="welcome-text">Welcome, <%= currentUser.full_name %></p>
+    <% } else { %>
+      <p class="welcome-text">&nbsp;</p> <!-- keeps space consistent -->
+    <% } %>
 
-                    <% if (currentUser) { %>
+    <nav>
+      <% if (currentUser) { %>
+        <a class="nav-link border nav-btn" href="/log-out">Log-out</a>
 
-                        <a class="nav-link border" href="/log-out">Log-out</a>
+        <% if (currentUser.is_member) { %>
+          <button class="leave-club-button border nav-btn" onclick="openModal()">Leave Club</button>
 
-                        <% if (currentUser && currentUser.is_member) { %>
-                            <form action="/leave-club" method="POST">
-                                <button type="submit" class="leave-club-button border"
-                                    onclick="return confirm('Are you sure you want to leave the club?')">
-                                    Leave Club
-                                </button>
-                            </form>
-                            <% } else { %>
-                                <a class="nav-link border" href="/become-member">Become a Member</a>
-                                <%} %>
+          <div id="leaveModal" class="modal hidden">
+            <div class="modal-content">
+              <p>Are you sure you want to leave the club?</p>
+              <form action="/leave-club" method="POST">
+                <button type="submit" class="confirm-button">Yes, Leave</button>
+                <button type="button" class="cancel-button" onclick="closeModal()">Cancel</button>
+              </form>
+            </div>
+          </div>
+        <% } else { %>
+          <a class="nav-link border nav-btn" href="/become-member">Become a Member</a>
+        <% } %>
+      <% } else { %>
+        <a class="nav-link border nav-btn" href="/log-in">Log-in</a>
+        <a class="nav-link border nav-btn" href="/sign-up">Register</a>
+      <% } %>
+    </nav>
+  </div>
+</header>
 
-
-
-                                    <% }else{ %>
-                                        <a class="nav-link border" href="/log-in">Log-in</a>
-
-                                        <a class="nav-link" href="/sign-up">Register</a>
-                                        <% } %>
-
-                </nav>
-    </header>
     <main>
