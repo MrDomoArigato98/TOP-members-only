@@ -2,7 +2,15 @@ import express from "express";
 const router = express.Router();
 import * as controller from "../controllers/controller.js";
 import { signUpValidator } from "../validators/userValidator.js";
+import { messageValidator } from "../validators/messageValidator.js";
 import passport from "passport";
+
+export function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/log-in");
+}
 
 router.get("/", controller.getHome);
 
@@ -35,6 +43,20 @@ router.get("/log-out", (req, res, next) => {
     });
   });
 });
+
+router.get(
+  "/new-message",
+  ensureAuthenticated,
+  messageValidator,
+  controller.getNewMessageForm
+);
+router.post(
+  "/new-message",
+  ensureAuthenticated,
+  messageValidator,
+  controller.postNewMessageForm
+);
+
 router.get("/become-member", controller.getMemberForm);
 router.post("/become-member", controller.postMemberForm);
 

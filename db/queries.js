@@ -31,3 +31,29 @@ export async function findUserById(id) {
   );
   return rows[0];
 }
+
+export async function createMessage(userId, title, body) {
+  const { rows } = await pool.query(
+    `
+        INSERT INTO messages (user_id, title, body)
+            VALUES($1, $2, $3);
+        `,
+    [userId, title, body]
+  );
+}
+
+export async function getAllMessages() {
+  const { rows } = await pool.query(
+    `SELECT messages.id, messages.title, messages.body, messages.created_at,
+            users.full_name AS author, users.is_member
+     FROM messages
+     LEFT JOIN users ON messages.user_id = users.id
+     ORDER BY messages.created_at DESC`
+  );
+  return rows;
+}
+
+export async function dropAllMessages() {
+  const { rows } = await pool.query(`DELETE FROM messages;`);
+  return rows;
+}

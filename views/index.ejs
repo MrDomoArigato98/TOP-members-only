@@ -1,5 +1,30 @@
 <%- include("./partials/header") %>
-    
 
+    <% if (currentUser) { %>
+        <a class="new-message-link" href="/new-message">Post a new message</a>
+        <% } %>
+            <div class="messages-container">
+                <% if (messages.length===0) { %>
+                    <p>No messages</p>
+                    <%} else { %>
+                        <% messages.forEach(message=> { %>
+                            <div class="message-box">
+                                <% if (currentUser && currentUser.is_member) { %>
+                                    <p> Author:
+                                        <%= message.author %>
+                                    </p>
+                                    <% } else { %>
+                                        <p><em>Author: [Members only]</em></p>
+                                        <% } %>
+                                            <h3>
+                                                <%= message.title %>
+                                            </h3>
+                                            <p>
+                                                <%= message.body %>
+                                            </p>
 
-<%- include("./partials/footer") %>
+                            </div>
+                            <% }) %>
+                                <% } %>
+            </div>
+            <%- include("./partials/footer") %>

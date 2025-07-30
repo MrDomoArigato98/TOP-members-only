@@ -1,0 +1,32 @@
+<%- include("./partials/header") %>
+
+    <div class="form-container">
+        <h1 class="form-heading">Create new post</h1>
+
+        <form action="/new-message" method="POST" class="form">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" placeholder="Something catchy" required />
+            </div>
+
+            <div class="form-group">
+                <label for="body">Message</label>
+                <textarea maxlength="200" class="form-textarea" rows="5" id="body" name="body" required></textarea>
+            </div>
+
+
+            <button type="submit" class="submit-button">Submit post</button>
+
+            <% if (typeof errorList !=='undefined' && errorList.length> 0) { %>
+                <ul class="error-messages">
+                    <% errorList.forEach(e=> { %>
+                        <li>
+                            <%= e.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+        </form>
+    </div>
+
+    <%- include("./partials/footer") %>

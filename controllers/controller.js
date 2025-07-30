@@ -1,14 +1,28 @@
 import passport from "passport";
 import bcrypt from "bcryptjs";
-import { createUser } from "../db/queries.js";
+import { createUser, createMessage, getAllMessages } from "../db/queries.js";
 import { validationResult } from "express-validator";
 
 export async function getHome(req, res) {
   console.log("getHome");
-  res.render("index", {
-    title: "Message Board",
-  });
-  console.log(res.locals.currentUser);
+
+  try {
+    const messages = await getAllMessages();
+    console.log(messages);
+
+    res.render("index", {
+      title: "Message Board",
+      messages,
+      currentUser: req.user,
+    });
+  } catch (error) {
+    console.error("Error loading messages", error);
+    res.status(500).render("index", {
+      title: "Message Board",
+      messages: [],
+      currentUser: req.user,
+    });
+  }
 }
 
 export async function getSignUpForm(req, res) {
@@ -70,3 +84,25 @@ export async function getLogInForm(req, res) {
 export async function getMemberForm(req, res) {}
 
 export async function postMemberForm(req, res) {}
+
+export async function getNewMessageForm(req, res) {
+  res.render("new-message-form", {
+    title: "New Post",
+  });
+}
+export async function postNewMessageForm(req, res) {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).render("new-message-form", {
+      errorList: errors.array(),
+      title: "New Post",
+    });
+  }
+  console.log(req.body);
+  console.log(res.locals.currentUser);
+  const { id } = res.locals.currentUser;
+
+  await createMessage(id, req.body.title, req.body.body);
+
+  res.redirect("/");
+}
