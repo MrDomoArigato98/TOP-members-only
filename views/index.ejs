@@ -13,6 +13,10 @@
                                     <p> Author:
                                         <%= message.author %>
                                     </p>
+                                    <p> Created at: <em>
+                                            <%= message.created_at.toLocaleString() %>
+                                        </em></p>
+
                                     <% } else { %>
                                         <p><em>Author: [Members only]</em></p>
                                         <% } %>
