@@ -1,7 +1,9 @@
 <%- include("./partials/header") %>
 
     <% if (currentUser) { %>
-        <a class="new-message-link" href="/new-message">Post a new message</a>
+        <div class="new-message-wrapper">
+  <a class="hover border new-message-link" href="/new-message">Post a new message</a>
+</div>
         <% } %>
             <div class="messages-container">
                 <% if (messages.length===0) { %>

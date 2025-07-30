@@ -66,13 +66,13 @@ export async function postSignUpForm(req, res, next) {
     });
   } catch (error) {
     console.error("Signup error:", error);
-    let msg = "";
-    if (error.code == 23505) {
-      msg = "User already exists";
+    let errorMsg = "Something went wrong. Please try again.";
+    if (error.code === "23505") {
+      errorMsg = "A user with that email already exists.";
     }
 
     res.status(500).render("sign-up-form", {
-      errorList: [{ msg: "Something went wrong. Please try again." }, { msg }],
+      errorList: [{ msg: errorMsg }],
       username,
       full_name,
       title: "Sign-up",

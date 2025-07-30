@@ -12,23 +12,23 @@
 
 <body>
     <header>
-  <a href="/" class="nav-link site-title-link">
+  <a href="/" class="site-title-link">
     <h1>Message Board</h1>
   </a>
 
   <div class="nav-wrapper">
     <% if (currentUser) { %>
-      <p class="welcome-text">Welcome, <%= currentUser.full_name %></p>
+      <p class="welcome-text">Welcome back, <%= currentUser.full_name %></p>
     <% } else { %>
-      <p class="welcome-text">&nbsp;</p> <!-- keeps space consistent -->
+      <p class="welcome-text">&nbsp;</p>
     <% } %>
 
     <nav class="links">
       <% if (currentUser) { %>
-        <a class="hover nav-link border nav-btn" href="/log-out">Log-out</a>
+        <a class="hover border nav-btn" href="/log-out">Log-out</a>
 
         <% if (currentUser.is_member) { %>
-          <button class="hover nav-link border nav-btn" onclick="openModal()">Leave Club</button>
+          <button class="hover border nav-btn" onclick="openModal()">Leave Club</button>
 
           <div id="leaveModal" class="modal hidden">
             <div class="modal-content">
@@ -40,11 +40,11 @@
             </div>
           </div>
         <% } else { %>
-          <a class="hover nav-link border nav-btn" href="/become-member">Become a Member</a>
+          <a class="hover border nav-btn" href="/become-member">Become a Member</a>
         <% } %>
       <% } else { %>
-        <a class="nav-link border nav-btn" href="/log-in">Log-in</a>
-        <a class="nav-link border nav-btn" href="/sign-up">Register</a>
+        <a class="hover border nav-btn" href="/log-in">Log-in</a>
+        <a class="hover border nav-btn" href="/sign-up">Register</a>
       <% } %>
     </nav>
   </div>
