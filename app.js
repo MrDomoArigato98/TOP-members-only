@@ -20,11 +20,11 @@ const PgSession = pgSession(session);
 
 app.use(
   session({
-    store: new PgSession({ pool, ttl: 60 * 60 }),
+    store: new PgSession({ pool, ttl: 1000 *60 * 60 }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge:  60 * 60}, // use true only if HTTPS
+    cookie: { secure: false, maxAge: 1000* 60 * 60}, // use true only if HTTPS
   })
 );
 

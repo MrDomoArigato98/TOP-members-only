@@ -121,6 +121,8 @@ export async function postMemberForm(req, res) {
 }
 
 export async function getNewMessageForm(req, res) {
+  console.log("124 getNewMessageForm");
+  
   res.render("new-message-form", {
     title: "New Post",
   });
