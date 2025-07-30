@@ -59,12 +59,25 @@ router.post(
 
 router.post("/leave-club", ensureAuthenticated, controller.postLeaveClub);
 
-router.get("/become-member",ensureAuthenticated, controller.getMemberForm);
-router.post("/become-member",ensureAuthenticated, controller.postMemberForm);
+router.get("/become-member", ensureAuthenticated, controller.getMemberForm);
+router.post("/become-member", ensureAuthenticated, controller.postMemberForm);
 
-router.post("/delete-message/:messageId",ensureAuthenticated, controller.deleteMessage);
-// router.get("/become-admin", controller.getAdminForm)
-// router.post("/become-admin", controller.postAdminForm)
+router.post(
+  "/delete-message/:messageId",
+  ensureAuthenticated,
+  controller.deleteMessage
+);
+
+router.post(
+  "/become-admin/:userId",
+  ensureAuthenticated,
+  controller.postBecomeAdmin
+);
+router.post(
+  "/remove-admin/:userId",
+  ensureAuthenticated,
+  controller.postRemoveAdmin
+);
 
 export function mountRoutes(app) {
   app.use("/", router);

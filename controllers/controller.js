@@ -8,6 +8,8 @@ import {
   makeUserMember,
   removeMembership,
   deleteMessageById,
+  setUserAdmin,
+  removeUserAdmin,
 } from "../db/queries.js";
 import { validationResult } from "express-validator";
 
@@ -157,6 +159,29 @@ export async function deleteMessage(req, res) {
     await deleteMessageById(messageId);
   } catch (error) {
     console.error("Error removing message", error);
+    res.redirect("/");
+  }
+  res.redirect("/");
+}
+
+export async function postBecomeAdmin(req, res) {
+  const { userId } = req.params;
+
+  try {
+    await setUserAdmin(userId);
+  } catch (error) {
+    console.error(("Error setting to admin", error));
+    res.redirect("/");
+  }
+  res.redirect("/");
+}
+export async function postRemoveAdmin(req, res) {
+  const { userId } = req.params;
+
+  try {
+    await removeUserAdmin(userId);
+  } catch (error) {
+    console.error(("Error setting to admin", error));
     res.redirect("/");
   }
   res.redirect("/");

@@ -74,3 +74,22 @@ export async function deleteMessageById(messageId) {
   ]);
   console.log(rows);
 }
+
+export async function setUserAdmin(userId) {
+  const { rows } = await pool.query(
+    `
+        UPDATE users SET is_admin = true 
+            WHERE id = $1
+        `,
+    [userId]
+  );
+}
+export async function removeUserAdmin(userId) {
+  const { rows } = await pool.query(
+    `
+        UPDATE users SET is_admin = false 
+            WHERE id = $1
+        `,
+    [userId]
+  );
+}
