@@ -32,7 +32,6 @@
                                                             </p>
                                                 </div>
                                                 <% if (currentUser.is_admin) { %>
-                                        <%= console.log(message.id); %>
                                             <form class="delete-msg-form" action="/delete-message/<%= message.id %>"
                                                 method="POST">
                                                 <button type="submit" class="delete-button"

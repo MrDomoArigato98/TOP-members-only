@@ -321,7 +321,9 @@ footer {
   box-shadow: 0 0 10px black;
 }
 
-.confirm-button {
+.confirm-button,
+.cancel-button {
+  margin-top: 1rem;
   margin-right: 1rem;
   padding: 0.6rem 1.2rem;
   background-color: #d33;
@@ -330,18 +332,15 @@ footer {
   border-radius: 4px;
   cursor: pointer;
 }
-
 .cancel-button {
-  padding: 0.6rem 1.2rem;
   background-color: #555;
-  border: none;
-  color: white;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
+.confirm-button:hover,
+.cancel-button:hover {
+  transform: scale(1.1);
+}
 /*END Modal  */
-
 
 .delete-button {
   background: none;
@@ -354,7 +353,8 @@ footer {
 
 .hover:hover {
   transform: scale(1.1);
-  color: red;
+  color: #c0d048;
+  border-color: #e1ff00;
 }
 
 .delete-button:hover {
