@@ -8,8 +8,8 @@ import pgSession from "connect-pg-simple";
 import passport from "passport";
 import "./auth/passport-config.js";
 import { pool } from "./db/pool.js";
-
 import { mountRoutes } from "./routes/index.js";
+
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));

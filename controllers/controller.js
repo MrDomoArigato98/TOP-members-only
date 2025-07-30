@@ -1,6 +1,13 @@
-import passport from "passport";
+import dotenv from "dotenv";
+dotenv.config();
 import bcrypt from "bcryptjs";
-import { createUser, createMessage, getAllMessages } from "../db/queries.js";
+import {
+  createUser,
+  createMessage,
+  getAllMessages,
+  makeUserMember,
+  removeMembership,
+} from "../db/queries.js";
 import { validationResult } from "express-validator";
 
 export async function getHome(req, res) {
@@ -81,9 +88,35 @@ export async function getLogInForm(req, res) {
   });
 }
 
-export async function getMemberForm(req, res) {}
+export async function getMemberForm(req, res) {
+  res.render("member-form", {
+    title: "Become a member",
+  });
+}
 
-export async function postMemberForm(req, res) {}
+export async function postMemberForm(req, res) {
+  const { member_code } = req.body;
+  const correctCode = process.env.MEMBER_PASSCODE;
+
+  if (member_code === correctCode) {
+    try {
+      await makeUserMember(req.user.id);
+      req.user.is_member = true; // update session copy of user
+      return res.redirect("/");
+    } catch (error) {
+      console.error("Something went wrong"), error;
+      return res.status(500).render("member-form", {
+        title: "Become a member",
+        errorList: [{ msg: "Try again, the correct answer is dogs." }],
+      });
+    }
+  } else {
+    return res.status(400).render("member-form", {
+      title: "Become a member",
+      errorList: [{ msg: "The correct answer is dogs." }],
+    });
+  }
+}
 
 export async function getNewMessageForm(req, res) {
   res.render("new-message-form", {
@@ -105,4 +138,15 @@ export async function postNewMessageForm(req, res) {
   await createMessage(id, req.body.title, req.body.body);
 
   res.redirect("/");
+}
+
+export async function postLeaveClub(req, res) {
+  try {
+    await removeMembership(req.user.id);
+    req.user.is_member = false;
+    res.redirect("/");
+  } catch (error) {
+    console.error("Error removing membership", error);
+    res.redirect("/");
+  }
 }

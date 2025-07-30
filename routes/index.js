@@ -57,8 +57,10 @@ router.post(
   controller.postNewMessageForm
 );
 
-router.get("/become-member", controller.getMemberForm);
-router.post("/become-member", controller.postMemberForm);
+router.post("/leave-club", ensureAuthenticated, controller.postLeaveClub);
+
+router.get("/become-member",ensureAuthenticated, controller.getMemberForm);
+router.post("/become-member",ensureAuthenticated, controller.postMemberForm);
 
 // router.get("/become-admin", controller.getAdminForm)
 // router.post("/become-admin", controller.postAdminForm)

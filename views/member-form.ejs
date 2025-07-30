@@ -1,0 +1,24 @@
+<%- include("./partials/header") %>
+    <div class="form-container">
+        <h1>Become a Member</h1>
+
+        <form action="/become-member" method="POST" class="form">
+            <div class="form-group">
+                <label for="member_code">Dogs or cats?</label>
+                <input id="member_code" name="member_code" type="text" required />
+            </div>
+
+            <button type="submit" class="submit-button">Submit</button>
+
+            <% if (typeof errorList !=='undefined' && errorList.length> 0) { %>
+                <ul class="error-messages">
+                    <% errorList.forEach(e=> { %>
+                        <li>
+                            <%= e.msg %>
+                        </li>
+                        <% }) %>
+                </ul>
+                <% } %>
+        </form>
+    </div>
+    <%- include("./partials/footer") %>

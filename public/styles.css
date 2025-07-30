@@ -133,10 +133,21 @@ header {
   color: var(--nav-text);
   font-weight: bold;
 }
-nav > a {
+nav{
+  display: flex;
+  align-items: center;
+}
+.leave-club-button{
+  border: none;
+  color: var(--nav-text);
+  background-color: inherit;
+  cursor: pointer;
+  font-weight: bold;
+}
+nav > a{
   margin: 2rem;
 }
-.log-in {
+.border {
   border: 2px solid rgb(182, 173, 173);
   padding: 0.5em;
   border-radius: 24px;
