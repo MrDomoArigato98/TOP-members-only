@@ -12,7 +12,7 @@ import { mountRoutes } from "./routes/index.js";
 
 const app = express();
 app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 //Static assets
 app.use(express.static(__dirname + "/public"));
 
@@ -20,17 +20,16 @@ const PgSession = pgSession(session);
 
 app.use(
   session({
-    store: new PgSession({ pool, ttl: 1000 * 60 * 60 }),
+    store: new PgSession({ pool, ttl: 60 * 60 }),
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { secure: false, maxAge: 1000 * 60 * 60}, // use true only if HTTPS
+    cookie: { secure: false, maxAge:  60 * 60}, // use true only if HTTPS
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.urlencoded({ extended: false }));
 
 //This lets me access currentUser in all of my views
 app.use((req, res, next) => {
