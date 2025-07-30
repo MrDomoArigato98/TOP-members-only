@@ -170,7 +170,7 @@ export async function postBecomeAdmin(req, res) {
   try {
     await setUserAdmin(userId);
   } catch (error) {
-    console.error(("Error setting to admin", error));
+    console.error(("Error toggling", error));
     res.redirect("/");
   }
   res.redirect("/");
@@ -181,7 +181,7 @@ export async function postRemoveAdmin(req, res) {
   try {
     await removeUserAdmin(userId);
   } catch (error) {
-    console.error(("Error setting to admin", error));
+    console.error(("Error toggling", error));
     res.redirect("/");
   }
   res.redirect("/");

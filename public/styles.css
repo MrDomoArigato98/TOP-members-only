@@ -280,6 +280,8 @@ footer {
 .message-box h3 {
   margin-bottom: 0.5rem;
   color: #f1f1f1;
+  display: flex;
+  
 }
 
 .message-box p {
